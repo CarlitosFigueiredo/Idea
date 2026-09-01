@@ -33,7 +33,7 @@ class Idea extends Model
      * @var array<string, mixed>
      */
     protected $attributes = [
-        'status' => IdeaStatus::PENDING,
+        'status' => IdeaStatus::PENDING->value,
     ];
 
     /**
