@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\IdeaStatus;
+use Database\Factories\IdeaFactory;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Idea extends Model
 {
-    /** @use HasFactory<\Database\Factories\IdeaFactory> */
+    /** @use HasFactory<IdeaFactory> */
     use HasFactory;
 
     /**
@@ -46,11 +47,9 @@ class Idea extends Model
 
     /**
      * Get the steps from idea.
-     *
      */
     public function steps(): HasMany
     {
         return $this->hasMany(Step::class);
     }
-
 }

@@ -10,7 +10,6 @@ test('it belongs to a user', function () {
     expect($idea->user)->toBeInstanceOf(User::class);
 });
 
-
 test('it can hvae steps', function () {
 
     $idea = Idea::factory()->create();

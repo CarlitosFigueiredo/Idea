@@ -9,7 +9,6 @@ test('register a user', function () {
         ->fill('password', 'password123!@#')
         ->click('Create Account');
 
-
     $this->assertAuthenticated();
 
     expect(Auth::user())->toMatchArray([
@@ -17,7 +16,6 @@ test('register a user', function () {
         'email' => 'john@example.com',
     ]);
 });
-
 
 test('requires a valid email', function () {
     visit('/register')

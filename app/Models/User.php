@@ -33,7 +33,6 @@ class User extends Authenticatable
 
     /**
      * Get the ideas.
-     *
      */
     public function ideas(): HasMany
     {

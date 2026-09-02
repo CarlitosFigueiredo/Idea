@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 test('logs in a user', function () {
 
@@ -15,7 +14,6 @@ test('logs in a user', function () {
 
     $this->assertAuthenticatedAs($user);
 });
-
 
 test('logs out a user', function () {
 
