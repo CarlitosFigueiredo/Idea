@@ -2,8 +2,34 @@
     <div class="text-muted-foreground">
         <header class="py-8 md:py-12">
             <h1 class="text-3xl font-bold">Ideas</h1>
-            <p class="text-muted-foreground text-sm mt-2"> Capture yor thoughts. Make a plan.</p>
+            <p class="text-muted-foreground text-sm mt-2"> Capture your thoughts. Make a plan.</p>
         </header>
+
+        <div>
+            <a
+                href="/ideas"
+                class="btn {{ request()->has('status') ? 'btn-outlined' : '' }}"
+            >
+                All
+                <span class="text-xs pl-3">
+                    {{ $statusCounts->get('all') }}
+                </span>
+            </a>
+
+            @foreach (App\IdeaStatus::cases() as $status)
+
+                <a
+                    href="/ideas?status={{ $status->value }}"
+                    class="btn {{ request('status') === $status->value ? '' : 'btn-outlined' }}"
+                >
+                    {{ $status->label() }}
+                    <span class="text-xs pl-3">
+                        {{ $statusCounts->get($status->value) }}
+                    </span>
+                </a>
+            @endforeach
+        </div>
+
         <div class="mt-10">
             <div class="grid md:grid-cols-2 gap-6">
                 @forelse($ideas as $idea)
