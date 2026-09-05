@@ -1,4 +1,8 @@
-<a href="{{route('ideas.show', $idea->id)}}" {{ $attributes(['class'=>'border border-border rounded-lg bg-card p-4 md:text-sm'])}} >
+
+<a
+    href="{{route('ideas.show', ['idea' => $idea])}}"
+    {{ $attributes(['class'=>'border border-border rounded-lg bg-card p-4 md:text-sm'])}}
+>
     <h3 class="text-foreground text-lg">{{$idea->title}}</h3>
 
     <x-idea.status-label :status="$idea->status" />
