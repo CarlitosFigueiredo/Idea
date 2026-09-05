@@ -21,13 +21,13 @@ class IdeaController extends Controller
 
         $status = $request->status;
 
-        if (!in_array($status, IdeaStatus::values())) {
+        if (! in_array($status, IdeaStatus::values())) {
             $status = null;
         }
 
         $ideas = $user
             ->ideas()
-            ->when($status, fn($query, $status) => $query->where('status', $status))
+            ->when($status, fn ($query, $status) => $query->where('status', $status))
             ->get();
 
         return view('idea.index', [
