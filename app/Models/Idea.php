@@ -46,7 +46,7 @@ class Idea extends Model
             ->pluck('count', 'status');
 
         return collect(IdeaStatus::cases())
-            ->mapWithKeys(fn ($status) => [
+            ->mapWithKeys(fn($status) => [
                 $status->value => $counts->get($status->value, 0),
             ])
             ->put('all', $user->ideas()->count());

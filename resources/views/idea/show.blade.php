@@ -57,14 +57,42 @@
             <div class="mt-5 description">{!! $idea->description !!}</div>
         </div>
 
-        @if ($idea->steps->count())
-            {{-- <x-idea.repeater :variables="$idea->steps" title="Actionable Steps" :content="'steps'" /> --}}
-        @endif
-        @if ($idea->links->count())
-            {{-- <x-idea.repeater :variables="$idea->links" title="Idea Links" :content="'links'" /> --}}
+        {{-- @if ($idea->steps->count())
+            <x-idea.repeater :variables="$idea->steps" title="Actionable Steps" :content="'steps'" />
         @endif
 
+        @if ($idea->links->count())
+            <x-idea.repeater :variables="$idea->links" title="Idea Links" :content="'links'" />
+        @endif --}}
+
         {{-- <x-idea.modal :idea="$idea" /> --}}
+
+        @if ($idea->steps->count())
+
+            <div>
+                <h3 class="font-bold text-xl mt-6">
+                    Actionable Steps
+                </h3>
+
+                <div class="mt-3 space-y-2">
+
+                    @foreach ($idea->steps as $step)
+
+                        <x-card class="text-primary font-medium flex gap-x-3 items-center">
+                            <div class="flex items-center gap-x-3">
+
+                                <button>
+                                    checkmark status
+                                </button>
+                                <span>
+                                    {{ $step->description }}
+                                </span>
+                            </div>
+                        </x-card>
+                    @endforeach
+                </div>
+            </div>
+        @endif
 
         @if ($idea->links->count())
 

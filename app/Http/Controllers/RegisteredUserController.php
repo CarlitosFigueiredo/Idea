@@ -16,39 +16,26 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
-            'name' => [
-                'required',
-                'string',
-                'max:255',
-                'min:3',
-                'max:255',
-            ],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email'),
-            ],
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                'max:255',
-            ],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
+
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],  //Woks same that next line,
+            // The practical difference is that Rule::unique(...) lets you customize things more easily, for example, ignoring the current user when editing.
+            // Rule::unique('users', 'email')->ignore($user->id)
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
+            'password' => ['required', 'string', 'min:8', 'max:255'], // Add 'confirmed' if password_confirmation is needed
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'password' => $request->password, // Don't need add Hash, because password is cast hash by default
         ]);
 
         Auth::login($user);
 
-        return redirect('/')->with('success', 'Registration successful! You are now logged in.');
+        return redirect('/')->with('success', 'You have been registered');
     }
 }

@@ -7,15 +7,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/ideas');
 
-Route::get('/ideas', [IdeaController::class, 'index'])->name('ideas.index')->middleware('auth');
-Route::post('/ideas', [IdeaController::class, 'store'])->name('ideas.store')->middleware('auth');
-Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show')->middleware('auth');
-Route::delete('/ideas/destroy/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy')->middleware('auth');
+Route::middleware('auth')->group(function () {
 
-Route::get('/register', [RegisteredUserController::class, 'create'])->middleware('guest');
-Route::post('/register', [RegisteredUserController::class, 'store'])->middleware('guest');
+    Route::get('/ideas', [IdeaController::class, 'index'])->name('ideas.index');
+    Route::post('/ideas/store', [IdeaController::class, 'store'])->name('ideas.store');
+    Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
+    Route::post('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+    Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
+    Route::post('/ideas/{idea}/update', [IdeaController::class, 'update'])->name('ideas.update');
+    // Route::patch('/steps/{step}', [StepController::class, 'update'])->name('step.upddate');
 
-Route::get('/login', [SessionsController::class, 'create'])->name('login')->middleware('guest');
-Route::post('/login', [SessionsController::class, 'store'])->middleware('guest');
+    Route::post('/logout', [SessionsController::class, 'destroy'])->name('logout');
+});
 
-Route::post('/logout', [SessionsController::class, 'destroy'])->middleware('auth');
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisteredUserController::class, 'create']);
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+    Route::get('/login', [SessionsController::class, 'create'])->name('login');
+    Route::post('/login', [SessionsController::class, 'store']);
+});
+
+
+// continued video: Actionable Steps - 06:06
