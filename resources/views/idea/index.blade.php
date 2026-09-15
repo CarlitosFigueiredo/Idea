@@ -73,6 +73,7 @@
                 }"
                 method="POST"
                 action="{{ route('ideas.store') }}"
+                enctype="multipart/form-data"
             >
                 @csrf
 
@@ -118,6 +119,20 @@
                             type="textarea"
                             placeholder="Describe here your idea ...."
                         />
+
+                        <div class="space-y-2">
+
+                            <label for="image" class="label"> Featured Image </label>
+
+                            <input
+                                type="file"
+                                name="image"
+                                id="image"
+                                accept="image/*"
+                            />
+
+                            <x-form.error name="image" />
+                        </div>
 
                         <div>
                             <fieldset class="space-y-3">

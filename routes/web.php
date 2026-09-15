@@ -13,7 +13,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/ideas', [IdeaController::class, 'index'])->name('ideas.index');
     Route::post('/ideas/store', [IdeaController::class, 'store'])->name('ideas.store');
     Route::get('/ideas/{idea}', [IdeaController::class, 'show'])->name('ideas.show');
-    Route::post('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+    Route::delete('/ideas/{idea}', [IdeaController::class, 'destroy'])->name('ideas.destroy');
+
     Route::get('/ideas/{idea}/edit', [IdeaController::class, 'edit'])->name('ideas.edit');
     Route::post('/ideas/{idea}/update', [IdeaController::class, 'update'])->name('ideas.update');
     Route::patch('/steps/{step}', [StepController::class, 'update'])->name('step.upddate');
@@ -26,6 +27,3 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [SessionsController::class, 'create'])->name('login');
     Route::post('/login', [SessionsController::class, 'store']);
 });
-
-
-// continued video: Actionable Steps - 06:06

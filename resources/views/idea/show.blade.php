@@ -40,9 +40,9 @@
         <h3 class="text-foreground text-lg mb-3">{{ $idea->title }}</h3>
 
         @if ($idea->image_path)
-            <div class="rounded-lg overflow-hidden ">
+            <div class="rounded-lg overflow-hidden">
                 <img src="{{ asset('storage/' . $idea->image_path) }}" alt=""
-                    class="w-full h-auto aspect-video mx-auto mb-2 rounded-lg" />
+                    class="w-full h-auto object-cover" />
             </div>
         @endif
 
