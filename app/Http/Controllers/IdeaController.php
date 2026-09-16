@@ -10,6 +10,7 @@ use App\Models\Idea;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class IdeaController extends Controller
@@ -56,6 +57,8 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea): View
     {
+        Gate::authorize('workWith', $idea);
+
         return view('idea.show', [
             'idea' => $idea,
         ]);
@@ -66,7 +69,7 @@ class IdeaController extends Controller
      */
     public function edit(Idea $idea)
     {
-        //
+        Gate::authorize('workWith', $idea);
     }
 
     /**
@@ -74,7 +77,7 @@ class IdeaController extends Controller
      */
     public function update(UpdateIdeaRequest $request, Idea $idea)
     {
-        //
+        Gate::authorize('workWith', $idea);
     }
 
     /**
@@ -82,7 +85,8 @@ class IdeaController extends Controller
      */
     public function destroy(Idea $idea)
     {
-        // authorize that this is allowed.
+        Gate::authorize('workWith', $idea);
+
         $idea->delete();
 
         return to_route('ideas.index')

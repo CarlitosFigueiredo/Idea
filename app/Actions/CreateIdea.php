@@ -10,7 +10,7 @@ class CreateIdea
 {
     public function __construct(#[CurrentUser] protected User $user) {}
 
-    public function handle(array $attributes, ?User $user = null)
+    public function handle(array $attributes)
     {
         $data = collect($attributes)->only([
             'title',
@@ -23,7 +23,7 @@ class CreateIdea
             $data['image_path'] = $attributes['image']->store('ideas', 'public');
         }
 
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data, $attributes) {
 
             $idea = $this->user->ideas()->create($data);
 
