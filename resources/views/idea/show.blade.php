@@ -37,38 +37,28 @@
             </div>
         </div>
 
-        <h3 class="text-foreground text-lg mb-3">{{ $idea->title }}</h3>
-
         @if ($idea->image_path)
             <div class="rounded-lg overflow-hidden">
-                <img src="{{ asset('storage/' . $idea->image_path) }}" alt=""
-                    class="w-full h-auto object-cover" />
+                <img src="{{ asset('storage/' . $idea->image_path) }}" alt="" class="w-full h-auto object-cover" />
             </div>
         @endif
 
+        <h1 class="font-bold text-4xl">{{ $idea->title }}</h1>
 
-        <div @class(['border border-border rounded-lg bg-card p-4 md:text-sm'])>
+        <div class="mt-2 flex gap-x-3 items-center">
 
-            <div class="flex items-center gap-2">
-                <x-idea.status-label :status="$idea->status" />
-                <p class="text-xs text-muted-foreground">{{ $idea->created_at->diffForHumans() }}</p>
-            </div>
+            <x-idea.status-label :status="$idea->status">{{ $idea->status->label() }}</x-idea.status-label>
 
-            <div class="mt-5 description">{!! $idea->description !!}</div>
+            <p class="text-muted-foreground text-sm">{{ $idea->created_at->diffForHumans() }}</p>
         </div>
 
-        {{-- @if ($idea->steps->count())
-            <x-idea.repeater :variables="$idea->steps" title="Actionable Steps" :content="'steps'" />
+        @if ($idea->description)
+            <x-card class="mt-6">
+                <div class="text-foreground max-w-none cursor-pointer">{{ $idea->description }}</div>
+            </x-card>
         @endif
 
-        @if ($idea->links->count())
-            <x-idea.repeater :variables="$idea->links" title="Idea Links" :content="'links'" />
-        @endif --}}
-
-        {{-- <x-idea.modal :idea="$idea" /> --}}
-
         @if ($idea->steps->count())
-
             <div>
                 <h3 class="font-bold text-xl mt-6"> Actionable Steps </h3>
 
@@ -122,5 +112,7 @@
                 </div>
             </div>
         @endif
+
+        <x-idea.modal :idea="$idea" />
     </div>
 </x-layout.layout>
